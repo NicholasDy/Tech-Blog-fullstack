@@ -1,1 +1,17 @@
-<h1>you made it</h1>
+{{#each blogposts as |blogpost|}}
+<div class="row mb-4 project">
+    <div class="">
+        <div>
+            <h2>{{blogpost.title}}</h2>
+            <p>Created by {{blogpost.user.name}} on {{blogpost.createdAt}}</p>
+            <label for="cars">Choose a car:</label>
+            <select id="optionsblog" name="options">
+                <option value="edit" id={{blogpost.id}}>Edit</option>
+                <option value="delete" id={{blogpost.id}}>Delete</option>
+            </select>
+        </div>
+        <p>{{blogpost.content}}</p>
+    </div>
+</div>
+<script src="/js/editpost.js"></script>
+{{/each}}
