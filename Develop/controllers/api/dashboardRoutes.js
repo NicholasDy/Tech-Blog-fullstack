@@ -4,18 +4,47 @@ const withAuth = require("../../utlis/auth");
 
 //this is the api route /dashboards
 
-router.get("/", withAuth, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
-    const newBlogPost = await User.findByPK(req.params.id, {
-      include: [{ model: Comment }, { model: User }],
+    const blogPostData = await Blogpost.findByPk(req.params.id, {
+      include: [
+        {
+          model:User,
+          attributes:['name']
+        },
+        {
+          model:Comment,
+          attributes:['content',"createdAt"],
+          include:[
+            {
+              model:User, 
+              attributes:['name']
+            },            
+          ]
+        },
+      ]
     });
-    res.status(200).json(
-     { newBlogPost,
-      logged_in: req.session.logged_in})
+
+    const blogPost = blogPostData.get({ plain: true });
+    console.log(blogPost)
+    res.render("dashboard", {
+      blogposts:blogPost,
+    });
   } catch (err) {
-    res.status(400).json(err);
+    res.status(500).json(err);
   }
 });
+//   try {
+//     const newBlogPost = await User.findByPK(req.params.id, {
+//       include: [{ model: Comment }, { model: User }],
+//     });
+//     res.status(200).json(
+//      { newBlogPost,
+//       logged_in: req.session.logged_in})
+//   } catch (err) {
+//     res.status(400).json(err);
+//   }
+// });
 
 module.exports = router
 

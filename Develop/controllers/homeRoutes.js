@@ -19,8 +19,6 @@ router.get("/", async (req, res) => {
     const blogPosts = blogPostData.map((blogpost) =>
       blogpost.get({ plain: true })
     );
-    console.log("here are the posts", blogPosts);
-
     res.render("homepage", {
       blogposts: blogPosts, //we had to give the array a name for the template to be able to read it
     });
@@ -63,7 +61,8 @@ router.get("/blogpost/:id", async (req, res) => {
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
-    res.redirect('/profile');
+    res.redirect('/dashboard');
+    console.log("you are logged in")
     return;
   }
 
