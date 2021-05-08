@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Blogpost, User } = require("../models");
+const { Blogpost, User, Comment } = require("../models");
 const withAuth = require("../utlis/auth");
 
 // the user on the home page is going to brought to the home page which will have the log in
@@ -7,11 +7,11 @@ const withAuth = require("../utlis/auth");
 router.get("/", async (req, res) => {
   try {
     const blogPostData = await Blogpost.findAll({
-      include:[
+      include: [
         {
           model: User,
-          attributes: ["name"]
-        }
+          attributes: ["name"],
+        },
       ],
       // order: [["created_at"]],
     });
@@ -19,10 +19,10 @@ router.get("/", async (req, res) => {
     const blogPosts = blogPostData.map((blogpost) =>
       blogpost.get({ plain: true })
     );
-    console.log('here are the posts', blogPosts.length)
+    console.log("here are the posts", blogPosts);
 
-    res.render("homepage", { 
-      blogPosts, 
+    res.render("homepage", {
+      blogposts: blogPosts, //we had to give the array a name for the template to be able to read it
     });
   } catch (err) {
     res.status(500).json(err);
@@ -30,23 +30,40 @@ router.get("/", async (req, res) => {
 });
 router.get("/blogpost/:id", async (req, res) => {
   try {
-    const blogPostData = await Blogpost.findByPk({
-      
+    const blogPostData = await Blogpost.findByPk(req.params.id, {
+      include: [
+        {
+          model:User,
+          attributes:['name']
+        },
+        {
+          model:Comment,
+          attributes:['content',"createdAt"],
+          include:[
+            {
+              model:User, 
+              attributes:['name']
+            },            
+          ]
+        },
+      ]
     });
 
-    const blogPosts = blogPostData.map((blogpost) =>
-      blogpost.get({ plain: true })
-    );
-
-    res.render("homepage", { blogPosts });
+    const blogPost = blogPostData.get({ plain: true });
+    console.log(blogPost)
+    res.render("blogpost", {
+      blogposts:blogPost,
+    });
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
+
 router.get('/login', (req, res) => {
+  // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
-    res.redirect('/');
+    res.redirect('/profile');
     return;
   }
 

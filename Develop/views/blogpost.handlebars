@@ -1,0 +1,17 @@
+<div class="row mb-4 project">
+  <div class="">
+    <h2>{{blogposts.title}}</h2>
+        <p>Created by {{blogposts.user.name}} on {{blogposts.createdAt}}</p>
+    <p></p>
+</div>
+
+{{#each blogposts.comments as |comment|}}
+<div>
+    <h3>
+        {{comment.user.name}}
+    </h3>
+    <p>
+        {{comment.content}}
+    </p>
+</div>
+{{/each}}

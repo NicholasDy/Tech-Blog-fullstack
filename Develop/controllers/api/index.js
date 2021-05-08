@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const dashboardRoutes = require('./dashboardRoutes');
-const commentRoutes = require('./Comment');
+const userRoutes = require('./UserRoutes.js');
 
 router.use('/dashboards', dashboardRoutes);
-// router.use('/users', ); //this is a link to show the user's account with all of the comments 
+router.use('/user', userRoutes); 
 
 module.exports = router;
