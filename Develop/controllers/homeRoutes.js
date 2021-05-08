@@ -20,7 +20,8 @@ router.get("/", async (req, res) => {
       blogpost.get({ plain: true })
     );
     res.render("homepage", {
-      blogposts: blogPosts, //we had to give the array a name for the template to be able to read it
+      blogposts: blogPosts,
+      logged_in: req.session.logged_in  //we had to give the array a name for the template to be able to read it
     });
   } catch (err) {
     res.status(500).json(err);
@@ -51,11 +52,22 @@ router.get("/blogpost/:id", async (req, res) => {
     console.log(blogPost)
     res.render("blogpost", {
       blogposts:blogPost,
+      logged_in: req.session.logged_in 
     });
   } catch (err) {
     res.status(500).json(err);
   }
 });
+
+router.get("/dashboard", async (req,res)=>{
+  try{
+    
+    res.render("dashboard",{
+    logged_in: req.session.logged_in});
+  }catch(err) {
+    res.status(500).json(err);
+  }
+})
 
 
 router.get('/login', (req, res) => {
