@@ -8,6 +8,9 @@ A functioning blog site for users to post and comment anything about tech! On th
 ## Screenshot
 ![picture](/assets/screenshot.PNG)
 
+## Heroku 
+https://obscure-shore-93140.herokuapp.com/
+
 ## Code Style; Javascript/Node.js
 
 ## Credit- 
