@@ -1,0 +1,21 @@
+<div class="row mb-4 project">
+    <div class="">
+        <h2>{{blogposts.title}}</h2>
+        <p>Created on {{format_date blogposts.createdAt}}</p>
+
+        <form class="card card-body enew-post-form" id="edit-post-form">
+            <div class="m-3">
+                <label for="post-title" class="form-label">Title</label>
+                <input name="post-title" type="text" id='title' value="{{blogposts.title}}" class="form-input" />
+            </div>
+            <div class="m-3">
+                <textarea class="form-label" for="content" id='content' cols="60"
+                    rows="10">{{blogposts.content}}</textarea>
+            </div>
+            <div class="m-3">
+                <button type="submit" class="btn btn-primary btn-sms" id='subBtn'>Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="/js/edit.js"></script>

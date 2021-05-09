@@ -1,17 +1,20 @@
-{{#each blogposts as |blogpost|}}
-<div class="row mb-4 project">
-    <div class="">
-        <div>
-            <h2>{{blogpost.title}}</h2>
-            <p>Created by {{blogpost.user.name}} on {{blogpost.createdAt}}</p>
-            <label for="cars">Choose a car:</label>
-            <select id="optionsblog" name="options">
-                <option value="edit" id={{blogpost.id}}>Edit</option>
-                <option value="delete" id={{blogpost.id}}>Delete</option>
-            </select>
-        </div>
-        <p>{{blogpost.content}}</p>
+<a class="btn" href="/new-post"><button class="btn btn-primary">New Post</button></a>
+
+{{#each blogposts as |blogpost| }}
+<div class="card m-3 p-2">
+    <div class="col-md-6">
+        <h2>
+            <a href="/blogpost/{{blogpost.id}}">{{blogpost.title}}</a>
+        </h2>
+        <p>Created by {{blogpost.user.name}} on {{format_date blogpost.createdAt}}</p>
+    </div>
+    <div class='ml-3'>
+       <a href="/edit-post/{{blogpost.id}}"><button type="submit"  class="btn btn-primary btn-sm">Update Post</button></a> 
+       <a href="/delete-post/{{blogpost.id}}"><button type="submit" class="delete-post-btn btn btn-primary btn-sm">Delete Post</button></a>
+    </div>
+    <div>
+        <p class="m-3">{{blogpost.content}}</p>
     </div>
 </div>
-<script src="/js/editpost.js"></script>
+
 {{/each}}

@@ -5,22 +5,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css"> 
     <title>My Blog Post</title>
 </head>
 
 <body>
     <div>
-        <header>
-            <h1>Title</h1>
-            <nav>
+        <header class="bg-primary">
+            <h1 class="text-light m-3">TechBlog</h1>
+            <nav class="navbar">
+                <a class="text-light navbar-brand" href="/">Homepage</a>
                 {{#if logged_in}}
-                <a href="/dashboard">DashBoard</a>
-                <a class="link" href="/" id="logout">Logout</a>
+                <a class="text-light navbar-brand" href="/dashboard">DashBoard</a>
+                <a class="text-light navbar-brand" class="link" href="/" id="logout">Logout</a>
                 {{else}}
-                <a href="/">Homepage</a>
-                <a href="/login">login</a>
+                
+                <a class="text-light navbar-brand" href="/login">Login</a>
                 {{/if}}
             </nav>
         </header>
@@ -28,6 +29,8 @@
             {{{ body }}}
         </main>
     </div>
+    {{#if logged_in}}
     <script src="/js/logout.js"></script>
+    {{/if}}
 </body>
 </html>
